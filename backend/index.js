@@ -1,8 +1,9 @@
-import express from "express"
 import "dotenv/config";
+import express from "express"
+
 import pool from "./src/model/pool.js"
 
-
+import usuarioRoutes from "./src/routes/usuario.routes.js"
 
 const app = express();
 
@@ -10,9 +11,13 @@ const port = 3000;
 
 app.use(express.json()); // middleware sempre antes das routes
 
+
+
 app.get("/", (req , res) => {
     res.send("teste");
 })
+
+app.use("/usuarios", usuarioRoutes)
 
 
 async function testarConexao(){

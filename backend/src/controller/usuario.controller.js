@@ -64,11 +64,7 @@ try{
 export async function login(req, res){
  
 
-    if(!email || !senha){
-        return res.status(400).json({
-            erro: "Email e senha são obrigatórios"
-        })
-    }
+    
 
 
 try{
@@ -76,6 +72,12 @@ try{
     //recebe email e senha
     const email = req.body.email;
     const senha = req.body.senha;
+
+    if(!email || !senha){
+        return res.status(400).json({
+            erro: "Email e senha são obrigatórios"
+        })
+    }
 
     const usuario = await buscarPorEmail(email);
 
@@ -86,7 +88,7 @@ try{
     }
 
    
-    const senhaConfere = await bcrypt.compare(senha, usuario,senha);
+    const senhaConfere = await bcrypt.compare(senha, usuario.senha);
 
     //verifica se a senha está correta
     if(!senhaConfere){

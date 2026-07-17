@@ -2,7 +2,6 @@ import "dotenv/config";
 import express from "express"
 
 import pool from "./src/model/pool.js"
-
 import usuarioRoutes from "./src/routes/usuario.routes.js"
 
 const app = express();

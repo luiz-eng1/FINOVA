@@ -6,7 +6,7 @@ const router = Router()
 
 
 router.post("/cadastro", cadastrar)
-router.post("/login", login);
+router.post("/login", login); // 'se eu dia chegar uma função no caminho /login , chame  a função login
 router.get("/perfil", autotoken, (req, res) => { res.json({ usuarioId: req.usuarioId }) })
 
 export default router

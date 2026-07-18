@@ -3,7 +3,7 @@ import express from "express"
 
 import pool from "./src/model/pool.js"
 import usuarioRoutes from "./src/routes/usuario.routes.js"
-
+import transacaoRoutes from "./src/routes/transacao.routes.js"
 const app = express();
 
 const port = 3000;
@@ -18,6 +18,7 @@ app.get("/", (req , res) => {
 })
 
 app.use("/usuarios", usuarioRoutes)
+app.use("/transacoes", transacaoRoutes)
 
 
 async function testarConexao(){

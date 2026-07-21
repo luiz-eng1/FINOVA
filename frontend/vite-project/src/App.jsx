@@ -1,68 +1,29 @@
-import { useState } from 'react'
-import './App.css'
 
-
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
+import Login from "./pages/Login.jsx"
+import Dashboard from './pages/Dashboard.jsx';
 
 function App(){
 
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-  const [erro, setErro] = useState("");
-
-
-
-
-  async function fazerLogin(){
-
-
-    try{
-      const resposta = await fetch("http://localhost:3000/usuarios/login", {
-      method: "POST",
-      headers: {"Content-type": "application/json"},
-      body: JSON.stringify({email, senha})
-    });
-
-    const dados = await resposta.json();
-
-    if(resposta.ok){
-
-      localStorage.setItem("token", dados.token);
-      console.log("Logado!", dados.token)
-    }else{
-
-      setErro(dados.erro)
-      
-    }
-
-
-    
-    }catch(erro){
-      setErro("Erro ao conectar");
-    }
-    
-  }
-
   
-
-
 
 
 
   return(
     <>
 
-      <div>
-        <p>Email</p>
-        <input type="email" placeholder="Digite seu email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
+      <Router>
 
-        <p>Senha</p>
-        <input type="password" placeholder="Digite sua senha" value={senha} onChange={(e) => setSenha(e.target.value)}></input>
-        
+      <Routes>
+        <Route path="/" element= {<Login/>} />
+        <Route path="/login" element= {<Login/>} />
+        <Route path="/dashboard" element = {<Dashboard/>} />
 
-        <button onClick={fazerLogin}>Entrar</button>
-      </div>
+      </Routes>
 
-      {erro && <p style={{color: "red"}}>{erro}</p>}
+
+
+      </Router>
     
 
 

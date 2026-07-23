@@ -1,5 +1,5 @@
 
-import { criarTransacao, listarPorUsuario } from "../model/transacao.model.js";
+import { criarTransacao, listarPorUsuario, resumoPorUsuario } from "../model/transacao.model.js";
 
 
 
@@ -46,6 +46,34 @@ export async function listar(req, res){
         return res.status(200).json(listaUsuario);
     }catch(erro){
         console.error(erro);
+        return res.status(500).json({
+            erro: "Erro. tente novamente mais tarde."
+        })
+    }
+}
+
+
+export async function resumo(req, res){
+    try{
+
+        const usuarioId = req.usuarioId;
+
+        const resumoTransacoes = await resumoPorUsuario(usuarioId);
+
+        
+        const linhaEntrada = resumoTransacoes.find(l => l.tipo === 'entrada');
+        const linhaSaida = resumoTransacoes.find(l => l.tipo === 'saida');
+        
+        const entradas = linhaEntrada ? Number(linhaEntrada.total) : 0;
+        const saidas = linhaSaida ? Number(linhaSaida.total) : 0;
+
+        const saldo = entradas - saidas;
+        return res.status(200).json({entradas, saidas, saldo})
+
+        
+        
+    }catch(erro){
+        console.error(erro)
         return res.status(500).json({
             erro: "Erro. tente novamente mais tarde."
         })

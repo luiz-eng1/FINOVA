@@ -1,6 +1,6 @@
 import "dotenv/config";
 import express from "express"
-
+import cors from "cors"
 import pool from "./src/model/pool.js"
 import usuarioRoutes from "./src/routes/usuario.routes.js"
 import transacaoRoutes from "./src/routes/transacao.routes.js"
@@ -10,7 +10,7 @@ const port = 3000;
 
 
 app.use(express.json()); // middleware sempre antes das routes
-
+app.use(cors());
 
 
 app.get("/", (req , res) => {

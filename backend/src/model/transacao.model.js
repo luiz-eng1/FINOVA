@@ -15,3 +15,8 @@ export async function listarPorUsuario(usuarioId){
     const retornaTr = await pool.query("SELECT * FROM transacoes WHERE usuario_id = $1 ORDER BY data DESC", [usuarioId]);
     return retornaTr.rows;
 }
+
+export async function resumoPorUsuario(usuarioId){
+    const resumo = await pool.query("SELECT tipo, SUM(valor) as total FROM transacoes WHERE usuario_id = $1 GROUP BY tipo", [usuarioId]);
+    return resumo.rows;
+}

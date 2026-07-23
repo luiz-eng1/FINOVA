@@ -6,5 +6,6 @@ const router = Router();
 
 router.post("/",autotoken, criar)
 router.get("/", autotoken, listar)
+router.get("/resumo",autotoken,  resumo)
 
 export default router

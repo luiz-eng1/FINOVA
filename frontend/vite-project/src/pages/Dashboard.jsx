@@ -15,7 +15,8 @@ function Dashboard(){
     const [data, setData] = useState("");
 
 
-
+    //estado para o resumo financeiro
+    const [resumo, setResumo] = useState({entradas: 0, saidas: 0, saldo: 0});
 
         async function carregar (){
 
@@ -42,10 +43,33 @@ function Dashboard(){
         }
         
 
+    
+
+
+    async function carregarResumo(){
+        try{
+            const token = localStorage.getItem("token");
+            const resposta = await fetch("http://localhost:3000/transacoes/resumo", {
+                headers: { Authorization: "Bearer " + token}
+            });
+            const resultado = await resposta.json();
+            if(resposta.ok){
+                setResumo(resultado);
+            }else{
+                setErro("Não foi possivel carregar as transações");
+            }
+            setCarregando(false);
+        }catch(erro){
+            console.error(erro)
+            setCarregando(false)
+            setErro("Não foi possivel carregar as transações")
+        }
+    }
+
     useEffect(() => {
         carregar();
+        carregarResumo();
     }, []);
-  
 
 
     async function adicionar(){
@@ -62,6 +86,7 @@ function Dashboard(){
 
             if(resposta.ok){
                 carregar();
+                carregarResumo();
                 setDescricao("");
                 setValor("");
                 setData("");
@@ -117,6 +142,11 @@ function Dashboard(){
         ))}
 
 
+        <div>
+            <p>Entradas: R$ {resumo.entradas} </p>
+            <p>Saídas: R$ {resumo.saidas} </p>
+            <p>Saldo: R$ {resumo.saldo} </p>
+        </div>
 
 
 

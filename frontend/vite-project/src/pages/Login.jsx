@@ -1,5 +1,6 @@
 import {useState} from "react"
 import {useNavigate} from "react-router-dom"
+import "./Login.css"
 function Login(){
 
 
@@ -46,26 +47,43 @@ function Login(){
 
 
     return (
-        <>
-        <div>
-          <button onClick ={() => navigate("/cadastro")}>Cadastrar</button>
+      <div className="pagina">
+        
+        <div className="card">
+
+
+        <div className="cabecalho">
+        <label>FINOVA</label>
+        <p>Entre em sua conta</p>
         </div>
 
-        <div>
-        <p>Email</p>
+
+        <div className="caixa">
+
+        <label >Email</label>
         <input type="email" placeholder="Digite seu email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
 
-        <p>Senha</p>
+        </div>
+        
+        <div className="caixa">
+
+        <label>Senha</label>
         <input type="password" placeholder="Digite sua senha" value={senha} onChange={(e) => setSenha(e.target.value)}></input>
         
+        </div>
 
+        <div className="caixaBtn">
         <button onClick={fazerLogin}>Entrar</button>
-         </div>
+        </div>
+
+         <div className="caixaCadastro">
+          <button onClick ={() => navigate("/cadastro")}> Não tem uma conta? Cadastre-se</button>
+        </div>
 
         {erro && <p style={{color: "red"}}>{erro}</p>}
 
-
-        </>
+        </div>
+      </div>
     )
 }
 

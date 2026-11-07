@@ -1,0 +1,133 @@
+:root {
+  --cor-fundo: #0f1419;
+  --cor-card: #1a212b;
+  --cor-borda: #2a3441;
+  --cor-texto: #e6edf3;
+  --cor-texto-suave: #8b98a9;
+  --cor-destaque: #22c55e;
+  --cor-destaque-hover: #16a34a;
+  --cor-texto-botao: #04210f;
+  --cor-erro: #f87171;
+}
+
+body{
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    font-family: system-ui, sans-serif;
+}
+
+
+.pagina{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 16px;
+    
+    
+}
+
+.card{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 360px;
+    border-radius: 12px;
+    padding: 32px;
+    background-color: var(--cor-card);
+    border: 1px solid var(--cor-borda);
+}
+
+.cabecalho{
+    text-align: center;
+}
+.cabecalho h1{
+    font-size: 28px;
+    letter-spacing: 2px;
+    color: var(--cor-destaque);
+
+}
+
+.caixa{
+
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    
+}
+.caixa label{
+    font-size: 14px;
+    color: var(--cor-texto-suave);
+}
+
+.caixa input{
+    padding: 10px 12px;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 15px;
+}
+.caixa input::placeholder{
+    color: var(--cor-texto-suave);
+}
+.caixa input:focus{
+    outline: none;
+    border-color: var(--cor-destaque);
+}
+
+
+
+
+
+.caixaBtn button{
+    width: 100%;
+    padding:11px;
+    background-color: var(--cor-destaque);
+    color: var(--cor-texto-botao);
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+
+
+}
+
+.caixaBtn button:hover{
+    background-color: var(--cor-destaque-hover);
+}
+
+
+
+.caixaCadastro button{
+    
+    width: 100%;
+    padding: 4px;
+    background: none;
+    border: none;
+    color: var(--cor-texto-suave);
+    font-size: 14px;
+    
+}
+
+
+
+.caixaCadastro button:hover {
+
+    color: var(--cor-destaque);
+}
+
+
+
+.erro{
+    text-align: center;
+    font-size: 14px;
+    color: var(--cor-erro);
+}
+
+button{
+    cursor: pointer;
+    font-family: inherit;
+}

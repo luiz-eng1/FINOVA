@@ -36,7 +36,7 @@ function Login(){
 
 
     
-    }catch(erro){
+    }catch(err){
       setErro("Erro ao conectar");
     }
     
@@ -47,6 +47,9 @@ function Login(){
 
     return (
         <>
+        <div>
+          <button onClick ={() => navigate("/cadastro")}>Cadastrar</button>
+        </div>
 
         <div>
         <p>Email</p>

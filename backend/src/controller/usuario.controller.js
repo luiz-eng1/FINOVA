@@ -90,7 +90,7 @@ try{
     //verifica se a senha está correta
     if(!senhaConfere){
         return res.status(401).json({
-            erro: "Email o senha inválidos"
+            erro: "Email ou senha inválidos"
         })
     }
 

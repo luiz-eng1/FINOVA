@@ -120,13 +120,21 @@ function Dashboard(){
             <button>sair</button>
 
         </div>
+
         {carregando && <p>Carregando...</p>}
         {erro && <p style={{color: "red"}}>{erro}</p>}
         {!carregando && dados.length === 0 && <p>Nenhuma transação ainda.</p>}
 
 
+        <div className="resumo"> 
+            <card>Entradas</card>
+            <card>Saídas</card>
+            <card>Saldo</card>
+        </div>
 
 
+
+        <div className="formulario">
 
         <input value={descricao} onChange={(e) => setDescricao(e.target.value)} placeholder="Descrição" />
         <input value= {valor} onChange={(e) => setValor(e.target.value)} placeholder="Valor"/>
@@ -138,13 +146,18 @@ function Dashboard(){
         <input value= {data} onChange={(e) => setData(e.target.value)} type="date"></input>
         <button onClick={adicionar}>Adicionar</button>
 
+        </div>
 
 
 
 
 
 
-        {dados.map((transacao) => ( 
+
+        <div className="lista">
+
+
+            {dados.map((transacao) => ( 
             <div key={transacao.id}>    
                 <p> {transacao.tipo} </p>
                 <p> {new Date(transacao.data).toLocaleDateString('pt-BR')} </p>
@@ -158,6 +171,9 @@ function Dashboard(){
             <p>Entradas: R$ {resumo.entradas} </p>
             <p>Saídas: R$ {resumo.saidas} </p>
             <p>Saldo: R$ {resumo.saldo} </p>
+        </div>
+
+
         </div>
 
 

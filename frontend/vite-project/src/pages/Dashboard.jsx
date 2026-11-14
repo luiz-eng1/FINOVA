@@ -11,6 +11,7 @@ function Dashboard(){
     // estados para a exibição do formdashboard
     const [descricao, setDescricao] = useState("");
     const [valor, setValor] = useState("");
+    const [nicho ,setNicho] =useState("");
     const [tipo, setTipo] = useState("saida");
     const [data, setData] = useState("");
 
@@ -108,7 +109,17 @@ function Dashboard(){
     return(
         <>
 
-        <h1>Dashboard</h1>
+        <div className="pagina">
+
+
+
+
+        <div className="topo">
+            <h1>FINOVA</h1>
+            <label>olá, nome</label>
+            <button>sair</button>
+
+        </div>
         {carregando && <p>Carregando...</p>}
         {erro && <p style={{color: "red"}}>{erro}</p>}
         {!carregando && dados.length === 0 && <p>Nenhuma transação ainda.</p>}
@@ -123,6 +134,7 @@ function Dashboard(){
             <option value="saida">Saida</option>
             <option value="entrada">Entrada</option>
         </select>
+        <input value={nicho} onChange={(e) => setNicho(e.target.value)} placeholder="Nicho"></input>
         <input value= {data} onChange={(e) => setData(e.target.value)} type="date"></input>
         <button onClick={adicionar}>Adicionar</button>
 
@@ -146,6 +158,11 @@ function Dashboard(){
             <p>Entradas: R$ {resumo.entradas} </p>
             <p>Saídas: R$ {resumo.saidas} </p>
             <p>Saldo: R$ {resumo.saldo} </p>
+        </div>
+
+
+
+
         </div>
 
 

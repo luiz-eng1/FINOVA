@@ -11,6 +11,7 @@ export async function criar(req, res){
         const descricao = req.body.descricao;
         const tipo = req.body.tipo;
         const data = req.body.data;
+        const nicho = req.body.nicho;
         const usuarioId = req.usuarioId;
 
         if(!valor || valor < 0){

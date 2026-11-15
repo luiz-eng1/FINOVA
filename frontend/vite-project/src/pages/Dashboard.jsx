@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react"
 import {useNavigate} from "react-router-dom"
-
+import "./Dashboard.css"
 
 function Dashboard(){
 
@@ -84,7 +84,7 @@ function Dashboard(){
                     "Content-type": "application/json",
                     Authorization: "Bearer " + token
                 },
-                body: JSON.stringify({descricao, valor, tipo, data})
+                body: JSON.stringify({descricao, valor, tipo, data, nicho})
             });
 
             if(resposta.ok){
@@ -93,6 +93,7 @@ function Dashboard(){
                 setDescricao("");
                 setValor("");
                 setData("");
+                setNicho("");
                 setTipo("saida");
             }else{
                 const resultado = await resposta.json();
@@ -117,15 +118,15 @@ function Dashboard(){
     return(
         <>
 
-        <div className="pagina">
+        <div className="dashboard">
 
 
 
 
         <div className="topo">
             <h1>FINOVA</h1>
-            <label>olá, {localStorage.getItem("nome")} </label>
-            <button>sair</button>
+            <span>olá, {localStorage.getItem("nome")} </span>
+            <button onClick={sair}>sair</button>
 
         </div>
 
@@ -135,9 +136,9 @@ function Dashboard(){
 
 
         <div className="resumo"> 
-            <card>Entradas</card>
-            <card>Saídas</card>
-            <card>Saldo</card>
+            <div className="cartao">Entradas  {resumo.entradas} </div>
+            <div className="cartao">Saídas {resumo.saidas} </div>
+            <div className="cartao">Saldo {resumo.saldo} </div>
         </div>
 
 
@@ -150,7 +151,7 @@ function Dashboard(){
             <option value="saida">Saida</option>
             <option value="entrada">Entrada</option>
         </select>
-        <input value={nicho} onChange={(e) => setNicho(e.target.value)} placeholder="Nicho"></input>
+        <input value={nicho} onChange={(e) => setNicho(e.target.value)} placeholder="Ex: Mercado"></input>
         <input value= {data} onChange={(e) => setData(e.target.value)} type="date"></input>
         <button onClick={adicionar}>Adicionar</button>
 
@@ -175,11 +176,7 @@ function Dashboard(){
         ))}
 
 
-        <div>
-            <p>Entradas: R$ {resumo.entradas} </p>
-            <p>Saídas: R$ {resumo.saidas} </p>
-            <p>Saldo: R$ {resumo.saldo} </p>
-        </div>
+        
 
 
         </div>

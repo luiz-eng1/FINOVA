@@ -27,6 +27,7 @@ function Login(){
     if(resposta.ok){
 
       localStorage.setItem("token", dados.token);
+      localStorage.setItem("nome", dados.usuario.nome);
       console.log("Logado!", dados.token)
       navigate("/dashboard")
     }else{
@@ -38,6 +39,7 @@ function Login(){
 
     
     }catch(err){
+      console.error(err);
       setErro("Erro ao conectar");
     }
     

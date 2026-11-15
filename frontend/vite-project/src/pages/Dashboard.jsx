@@ -1,8 +1,10 @@
 import {useState, useEffect} from "react"
+import {useNavigate} from "react-router-dom"
 
 
 function Dashboard(){
 
+    const navigate = useNavigate();
     //carregando os dados da API com os 3 estados
     const [dados, setDados] = useState([]);
     const [carregando, setCarregando] = useState(true)
@@ -103,6 +105,12 @@ function Dashboard(){
         }
     }
 
+    function sair(){
+        localStorage.removeItem("token");
+        localStorage.removeItem("nome");
+        navigate("/login", {replace: true}) // replace serve para trocar a pag no histórico, em vez de empilhar outra
+    }
+
 
    
 
@@ -116,7 +124,7 @@ function Dashboard(){
 
         <div className="topo">
             <h1>FINOVA</h1>
-            <label>olá, nome</label>
+            <label>olá, {localStorage.getItem("nome")} </label>
             <button>sair</button>
 
         </div>

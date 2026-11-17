@@ -11,6 +11,14 @@ export async function criarTransacao(valor, descricao, tipo, data, usuarioId, ni
 
 }
 
+export async function excluirTransacao(id, usuarioId){
+    const resultado = await pool.query(
+        "DELETE FROM transacoes WHERE id = $1 AND usuario_id = $2 RETURNING id",
+        [id, usuarioId]
+    );
+    return resultado.rows[0];
+}
+
 
 export async function listarPorUsuario(usuarioId){
     

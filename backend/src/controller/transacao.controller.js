@@ -1,5 +1,5 @@
 
-import { criarTransacao, listarPorUsuario, resumoPorUsuario } from "../model/transacao.model.js";
+import { criarTransacao, listarPorUsuario, resumoPorUsuario, excluirTransacao } from "../model/transacao.model.js";
 
 
 
@@ -37,6 +37,27 @@ export async function criar(req, res){
     }
 }
 
+export async function excluir(req, res){
+    try{
+        const id = Number(req.params.id);
+
+        if(!Number.isInteger(id)){
+            return res.status(400).json({ erro: "Id inválido." });
+        }
+
+        const removida = await excluirTransacao(id, req.usuarioId);
+
+        if(!removida){
+            return res.status(404).json({ erro: "Transação não encontrada." });
+        }
+
+        return res.status(200).json({ mensagem: "Transação excluída." });
+    }catch(erro){
+        console.error(erro);
+        return res.status(500).json({ erro: "Não foi possível excluir a transação." });
+    }
+}
+
 
 
 export async function listar(req, res){
@@ -52,6 +73,8 @@ export async function listar(req, res){
         })
     }
 }
+
+
 
 
 export async function resumo(req, res){

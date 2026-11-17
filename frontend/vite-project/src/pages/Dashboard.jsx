@@ -120,90 +120,74 @@ function Dashboard(){
    
 
     return(
-        <>
-
         <div className="dashboard">
 
+    <header className="topo">
+      <h1>FINOVA</h1>
+      <div className="usuario">
+      <span>olá, {localStorage.getItem("nome")}</span>
+      <button onClick={sair}>Sair</button>
+      </div>
+    </header>
 
-        <header className="topo">
-            <h1>FINOVA</h1>
+    <section className="visao">
+      {carregando && <p>Carregando...</p>}
+      {erro && <p className="erro">{erro}</p>}
 
-            <div className="usuario">
-            
-            <span>olá, {localStorage.getItem("nome")} </span>
-            <button onClick={sair}>sair</button>
-
+      <div className="resumo">
+        <div className="cartao">
+          <span>Entradas</span>
+          <strong className="positivo">{formatarMoeda(resumo.entradas)}</strong>
         </div>
 
-        </header>
+        <div className="cartao">
+          <span>Saídas</span>
+          <strong className="negativo">{formatarMoeda(resumo.saidas)}</strong>
+        </div>
 
+        <div className="cartao">
+          <span>Saldo</span>
+          <strong className={Number(resumo.saldo) < 0 ? "negativo" : "positivo"}>
+            {formatarMoeda(resumo.saldo)}
+          </strong>
+        </div>
+      </div>
+    </section>
 
+    <div className="colunas">
 
-        <section className="resumo">
-            {carregando && <p>Carregando...</p>}
-            {erro && <p style={{color: "red"}}>{erro}</p>}
-            {!carregando && dados.length === 0 && <p>Nenhuma transação ainda.</p>}
-
-
-        
-            <div className="cartao">
-            <span>Entradas</span>
-            <strong className="positivo"> {formatarMoeda(resumo.entradas)} </strong>
-            </div>
-
-             <div className="cartao">
-            <span>Saidas</span>
-            <strong className="negativo"> {formatarMoeda(resumo.saidas)} </strong>
-            </div>
-
-             <div className="cartao">
-            <span>Saidas</span>
-            <strong className= {Number(resumo.saldo) < 0 ? "negativo" : "positivo" }> {formatarMoeda(resumo.saldo)} </strong>
-            </div>
-        
-
-        </section>
-
-
-
-        <div className="colunas">
-
-
-        <div className="formulario">
-
+      <div className="formulario">
         <input value={descricao} onChange={(e) => setDescricao(e.target.value)} placeholder="Descrição" />
-        <input value= {valor} onChange={(e) => setValor(e.target.value)} placeholder="Valor"/>
-        <select value= {tipo} onChange={(e) => setTipo(e.target.value)}>
-            <option value="saida">Saida</option>
-            <option value="entrada">Entrada</option>
+        <input value={valor} onChange={(e) => setValor(e.target.value)} placeholder="Valor" />
+        <select value={tipo} onChange={(e) => setTipo(e.target.value)}>
+          <option value="saida">Saída</option>
+          <option value="entrada">Entrada</option>
         </select>
-        <input value={nicho} onChange={(e) => setNicho(e.target.value)} placeholder="Ex: Mercado"></input>
-        <input value= {data} onChange={(e) => setData(e.target.value)} type="date"></input>
+        <input value={nicho} onChange={(e) => setNicho(e.target.value)} placeholder="Ex: Mercado" />
+        <input value={data} onChange={(e) => setData(e.target.value)} type="date" />
         <button onClick={adicionar}>Adicionar</button>
-
-        </div>
-
-
-        <div className="lista">
+      </div>
 
 
-            {dados.map((transacao) => ( 
-            <div key={transacao.id}>    
-                <p> {transacao.tipo} </p>
-                <p> {new Date(transacao.data).toLocaleDateString('pt-BR')} </p>
-                <p>{transacao.descricao} - R$ {transacao.valor} </p>
 
-            </div>
+      <div className="lista">
+        {!carregando && dados.length === 0 && (
+          <p className="vazio">Nenhuma transação ainda. Adicione a primeira.</p>
+        )}
+
+        {dados.map((transacao) => (
+          <div key={transacao.id}>
+            <p className={transacao.tipo}>
+              {transacao.tipo === "entrada" ? "Entrada" : "Saída"}
+            </p>
+            <p>{new Date(transacao.data).toLocaleDateString("pt-BR")}</p>
+            <p>{transacao.descricao} - {formatarMoeda(transacao.valor)}</p>
+          </div>
         ))}
+      </div>
 
-    
-        </div>
-
-        </div>
-
-        </div>
-
-        </>
+    </div>
+  </div>
     )
 }
 

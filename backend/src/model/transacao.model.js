@@ -1,9 +1,9 @@
 import pool from "./pool.js"
 
 
-export async function criarTransacao(valor, descricao, tipo, data, usuarioId){
+export async function criarTransacao(valor, descricao, tipo, data, usuarioId, nicho){
     
-    const criaTr = await pool.query("INSERT INTO transacoes(valor, descricao, tipo, data, usuario_id ) VALUES ($1, $2, $3, $4, $5 ) RETURNING * ", [valor, descricao, tipo, data, usuarioId]);
+    const criaTr = await pool.query("INSERT INTO transacoes(valor, descricao, tipo, data, usuario_id ) VALUES ($1, $2, $3, $4, $5, $6 ) RETURNING * ", [valor, descricao, tipo, data, usuarioId, nicho]);
     return criaTr.rows[0];
 
 }

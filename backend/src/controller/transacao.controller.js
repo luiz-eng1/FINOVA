@@ -27,7 +27,7 @@ export async function criar(req, res){
         }
 
 
-        const transacaoCriada = await criarTransacao(valor, descricao, tipo, data, usuarioId);
+        const transacaoCriada = await criarTransacao(valor, descricao, tipo, data, usuarioId, nicho);
         return res.status(201).json(transacaoCriada);
     }catch(erro){
         console.error(erro);

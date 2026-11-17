@@ -1,7 +1,7 @@
 import {Router} from "express"
 import {criar, listar} from "../controller/transacao.controller.js"
 import {autotoken} from "../middleware/auth.middleware.js"
-import {resumo} from "../controller/transacao.controller.js"
+import {resumo, excluir} from "../controller/transacao.controller.js"
 const router = Router();
 
 

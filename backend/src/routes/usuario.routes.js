@@ -1,8 +1,8 @@
 import {Router} from "express"
 import {cadastrar} from "../controller/usuario.controller.js"
 import { autotoken } from "../middleware/auth.middleware.js";
-import {login} from "../controller/usuario.controller.js"
-import {resumo} from "../controller/transacao.controller.js"
+import {login} from "../controller/usuario.controller.js";
+import {resumo} from "../controller/transacao.controller.js";
 const router = Router()
 
 

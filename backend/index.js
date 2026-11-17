@@ -6,8 +6,7 @@ import usuarioRoutes from "./src/routes/usuario.routes.js"
 import transacaoRoutes from "./src/routes/transacao.routes.js"
 const app = express();
 
-const port = 3000;
-
+const port = process.env.PORT || 3000;
 
 app.use(express.json()); // middleware sempre antes das routes
 app.use(cors());

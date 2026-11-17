@@ -150,7 +150,7 @@
 
 .lista > div {
   display: grid;
-  grid-template-columns: 80px 100px 1fr;
+  grid-template-columns: 80px 100px 1fr auto;
   gap: 12px;
   align-items: center;
   padding: 12px 0;
@@ -181,6 +181,18 @@
 .lista .saida { color: var(--cor-erro); }
 
 
+.excluir {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 4px 10px;
+  color: var(--cor-texto-suave);
+  font-size: 14px;
+}
+.excluir:hover {
+  color: var(--cor-erro);
+  border-color: var(--cor-erro);
+}
 
 
 

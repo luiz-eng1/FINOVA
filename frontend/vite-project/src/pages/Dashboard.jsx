@@ -117,6 +117,32 @@ function Dashboard(){
         return Number(valor).toLocaleString("pt-BR", {style: "currency", currency: "BRL"});
     }
 
+
+
+    async function excluir(id){
+    if(!window.confirm("Excluir esta transação?")) return;
+
+    try{
+        setErro("");
+        const token = localStorage.getItem("token");
+        const resposta = await fetch(`${API_URL}/transacoes/${id}`, {
+            method: "DELETE",
+            headers: { Authorization: "Bearer " + token }
+        });
+
+        if(resposta.ok){
+            carregar();
+            carregarResumo();
+        }else{
+            const resultado = await resposta.json();
+            setErro(resultado.erro);
+        }
+    }catch(err){
+        console.error(err);
+        setErro("Erro ao excluir a transação.");
+    }
+}
+
    
 
     return(
@@ -182,6 +208,7 @@ function Dashboard(){
             </p>
             <p>{new Date(transacao.data).toLocaleDateString("pt-BR")}</p>
             <p>{transacao.descricao} - {formatarMoeda(transacao.valor)}</p>
+            <button className="excluir" onClick={() => excluir(transacao.id)}>✕</button>
           </div>
         ))}
       </div>

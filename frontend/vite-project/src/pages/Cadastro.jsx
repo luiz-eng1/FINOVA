@@ -1,6 +1,7 @@
 
 import {useState} from "react"
 import {useNavigate} from "react-router-dom"
+import { API_URL } from "../api.js"
 import "./Cadastro.css"
 
 function Cadastro(){
@@ -16,7 +17,7 @@ function Cadastro(){
     async function fazerCadastro(){
 
         try{
-        const resposta = await fetch("http://localhost:3000/usuarios/cadastro", {
+        const resposta = await fetch(`${API_URL}/usuarios/cadastro`, {
         method: "POST",
         headers: {"Content-type": "application/json"},
         body: JSON.stringify({nome, email, senha})

@@ -1,5 +1,6 @@
 import {useState, useEffect} from "react"
 import {useNavigate} from "react-router-dom"
+import { API_URL } from "../api.js"
 import "./Dashboard.css"
 
 function Dashboard(){
@@ -26,7 +27,7 @@ function Dashboard(){
             try{
                 const token = localStorage.getItem("token");
 
-                const resposta = await fetch("http://localhost:3000/transacoes", {
+                const resposta = await fetch(`${API_URL}/transacoes`, {
                 headers: { Authorization: "Bearer " + token }
                 });
 
@@ -52,7 +53,7 @@ function Dashboard(){
     async function carregarResumo(){
         try{
             const token = localStorage.getItem("token");
-            const resposta = await fetch("http://localhost:3000/transacoes/resumo", {
+            const resposta = await fetch(`${API_URL}/transacoes/resumo`, {
                 headers: { Authorization: "Bearer " + token}
             });
             const resultado = await resposta.json();
@@ -78,7 +79,7 @@ function Dashboard(){
     async function adicionar(){
         try{
             const token = localStorage.getItem("token");
-            const resposta = await fetch("http://localhost:3000/transacoes", {
+            const resposta = await fetch(`${API_URL}/transacoes`, {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json",
@@ -112,6 +113,9 @@ function Dashboard(){
         navigate("/login", {replace: true}) // replace serve para trocar a pag no histórico, em vez de empilhar outra
     }
 
+    function formatarMoeda(valor){
+        return Number(valor).toLocaleString("pt-BR", {style: "currency", currency: "BRL"});
+    }
 
    
 
@@ -121,26 +125,48 @@ function Dashboard(){
         <div className="dashboard">
 
 
-
-
-        <div className="topo">
+        <header className="topo">
             <h1>FINOVA</h1>
+
+            <div className="usuario">
+            
             <span>olá, {localStorage.getItem("nome")} </span>
             <button onClick={sair}>sair</button>
 
         </div>
 
-        {carregando && <p>Carregando...</p>}
-        {erro && <p style={{color: "red"}}>{erro}</p>}
-        {!carregando && dados.length === 0 && <p>Nenhuma transação ainda.</p>}
+        </header>
 
 
-        <div className="resumo"> 
-            <div className="cartao">Entradas  {resumo.entradas} </div>
-            <div className="cartao">Saídas {resumo.saidas} </div>
-            <div className="cartao">Saldo {resumo.saldo} </div>
-        </div>
 
+        <section className="resumo">
+            {carregando && <p>Carregando...</p>}
+            {erro && <p style={{color: "red"}}>{erro}</p>}
+            {!carregando && dados.length === 0 && <p>Nenhuma transação ainda.</p>}
+
+
+        
+            <div className="cartao">
+            <span>Entradas</span>
+            <strong className="positivo"> {formatarMoeda(resumo.entradas)} </strong>
+            </div>
+
+             <div className="cartao">
+            <span>Saidas</span>
+            <strong className="negativo"> {formatarMoeda(resumo.saidas)} </strong>
+            </div>
+
+             <div className="cartao">
+            <span>Saidas</span>
+            <strong className= {Number(resumo.saldo) < 0 ? "negativo" : "positivo" }> {formatarMoeda(resumo.saldo)} </strong>
+            </div>
+        
+
+        </section>
+
+
+
+        <div className="colunas">
 
 
         <div className="formulario">
@@ -158,11 +184,6 @@ function Dashboard(){
         </div>
 
 
-
-
-
-
-
         <div className="lista">
 
 
@@ -175,19 +196,12 @@ function Dashboard(){
             </div>
         ))}
 
-
-        
-
+    
+        </div>
 
         </div>
 
-
-
-
         </div>
-
-
-
 
         </>
     )
